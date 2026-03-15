@@ -1,0 +1,22 @@
+[
+  {"timestamp": "2026-03-13T08:00:00", "vendor_id": "vendor_a", "metric": "api_calls_per_hour", "value": 7200, "metadata": {"region": "us-east-1"}},
+  {"timestamp": "2026-03-13T08:00:00", "vendor_id": "vendor_a", "metric": "uptime_percentage", "value": 99.8, "metadata": {}},
+  {"timestamp": "2026-03-13T08:00:00", "vendor_id": "vendor_a", "metric": "response_time_ms_p95", "value": 145, "metadata": {}},
+  {"timestamp": "2026-03-13T08:00:00", "vendor_id": "vendor_a", "metric": "error_rate_percentage", "value": 0.4, "metadata": {}},
+  {"timestamp": "2026-03-13T09:00:00", "vendor_id": "vendor_a", "metric": "api_calls_per_hour", "value": 9800, "metadata": {"region": "us-east-1"}},
+  {"timestamp": "2026-03-13T09:00:00", "vendor_id": "vendor_a", "metric": "uptime_percentage", "value": 99.6, "metadata": {}},
+  {"timestamp": "2026-03-13T09:00:00", "vendor_id": "vendor_a", "metric": "response_time_ms_p95", "value": 188, "metadata": {}},
+  {"timestamp": "2026-03-13T09:00:00", "vendor_id": "vendor_a", "metric": "error_rate_percentage", "value": 0.7, "metadata": {}},
+  {"timestamp": "2026-03-13T10:00:00", "vendor_id": "vendor_a", "metric": "api_calls_per_hour", "value": 12500, "metadata": {"region": "us-east-1", "note": "spike"}},
+  {"timestamp": "2026-03-13T10:00:00", "vendor_id": "vendor_a", "metric": "uptime_percentage", "value": 99.9, "metadata": {}},
+  {"timestamp": "2026-03-13T10:00:00", "vendor_id": "vendor_a", "metric": "response_time_ms_p95", "value": 162, "metadata": {}},
+  {"timestamp": "2026-03-13T10:00:00", "vendor_id": "vendor_a", "metric": "error_rate_percentage", "value": 0.2, "metadata": {}},
+  {"timestamp": "2026-03-13T11:00:00", "vendor_id": "vendor_a", "metric": "api_calls_per_hour", "value": 8100, "metadata": {}},
+  {"timestamp": "2026-03-13T11:00:00", "vendor_id": "vendor_a", "metric": "uptime_percentage", "value": 98.1, "metadata": {"note": "partial outage"}},
+  {"timestamp": "2026-03-13T11:00:00", "vendor_id": "vendor_a", "metric": "response_time_ms_p95", "value": 340, "metadata": {"note": "degraded"}},
+  {"timestamp": "2026-03-13T11:00:00", "vendor_id": "vendor_a", "metric": "error_rate_percentage", "value": 2.8, "metadata": {"note": "elevated errors"}},
+  {"timestamp": "2026-03-13T12:00:00", "vendor_id": "vendor_a", "metric": "api_calls_per_hour", "value": 6400, "metadata": {}},
+  {"timestamp": "2026-03-13T12:00:00", "vendor_id": "vendor_a", "metric": "uptime_percentage", "value": 99.7, "metadata": {}},
+  {"timestamp": "2026-03-13T12:00:00", "vendor_id": "vendor_a", "metric": "response_time_ms_p95", "value": 110, "metadata": {}},
+  {"timestamp": "2026-03-13T12:00:00", "vendor_id": "vendor_a", "metric": "error_rate_percentage", "value": 0.3, "metadata": {}}
+]

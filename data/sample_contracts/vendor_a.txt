@@ -1,0 +1,41 @@
+VENDOR: DataStream Inc.
+CONTRACT ID: DSI-2026-001
+EFFECTIVE DATE: 2026-01-01
+EXPIRY DATE: 2026-12-31
+
+SERVICE LEVEL AGREEMENT — DATA STREAMING API
+
+1. DEFINITIONS
+   "API" means the DataStream Inc. data streaming service accessible at api.datastream.io.
+   "Uptime" means the percentage of time the API is operational and accessible.
+   "Measurement Period" means each calendar month.
+
+2. AVAILABILITY & UPTIME
+   2.1 DataStream Inc. guarantees that the API will maintain an uptime of no less than 99.5%
+       during each calendar month, measured on a rolling basis.
+   2.2 Planned maintenance windows (not exceeding 4 hours per month) are excluded from
+       uptime calculations, provided 48-hour advance notice is given.
+   2.3 In the event uptime falls below 99.5% in any month, Client is eligible for a
+       service credit of 10% of that month's invoice.
+
+3. PERFORMANCE STANDARDS
+   3.1 Response Time: The API shall respond to requests within 200 milliseconds at the
+       95th percentile (P95), measured on a daily basis.
+   3.2 Error Rate: The API error rate (HTTP 5xx responses) shall not exceed 1.0% of all
+       requests in any given day.
+
+4. USAGE LIMITS
+   4.1 API Rate Limit: Client's usage shall not exceed 10,000 API calls per hour.
+   4.2 Excess usage above this limit may result in throttling without prior notice.
+   4.3 Client must not attempt to circumvent rate limiting through IP rotation or
+       parallel API keys.
+
+5. DATA RETENTION
+   5.1 DataStream Inc. will retain all log and event data for a minimum of 30 days.
+
+6. REPORTING
+   6.1 Monthly SLA compliance reports will be provided within 5 business days of month end.
+
+7. REMEDIES
+   7.1 Repeated violations (3+ months in a 12-month period) grant Client the right to
+       terminate this agreement with 30-day notice and a full refund of the current month.

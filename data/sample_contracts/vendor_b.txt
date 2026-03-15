@@ -1,0 +1,42 @@
+VENDOR: CloudVault Ltd.
+CONTRACT ID: CVL-2026-042
+EFFECTIVE DATE: 2026-01-01
+EXPIRY DATE: 2027-01-01
+
+SERVICE LEVEL AGREEMENT — CLOUD OBJECT STORAGE
+
+1. DEFINITIONS
+   "Storage Service" means the CloudVault managed object storage platform.
+   "Availability" means the ability to successfully store and retrieve objects.
+   "Data Transfer" means the total volume of data read from or written to the Storage Service.
+
+2. AVAILABILITY
+   2.1 CloudVault Ltd. guarantees Storage Service availability of 99.9% per calendar month.
+   2.2 Availability is measured by automated health checks every 5 minutes.
+   2.3 Failures to meet the 99.9% SLA entitle Client to a pro-rated credit as follows:
+       - 99.0%–99.9%: 10% credit
+       - 95.0%–99.0%: 25% credit
+       - Below 95.0%: 50% credit
+
+3. PERFORMANCE
+   3.1 Latency: Median (P50) latency for object operations shall not exceed 100 milliseconds
+       per day, measured across all API calls.
+   3.2 Throughput: The service shall sustain a minimum of 1,000 concurrent requests per second.
+
+4. USAGE CAPS
+   4.1 API Calls: Client's total API calls shall not exceed 50,000 per calendar day.
+   4.2 Data Transfer: Total daily data transfer (inbound + outbound) shall not exceed
+       1,000 GB (1 TB) per day without a separate bandwidth agreement.
+   4.3 Overage for data transfer is billed at $0.05 per GB above the daily cap.
+
+5. SECURITY
+   5.1 All data at rest is encrypted using AES-256.
+   5.2 All data in transit uses TLS 1.2 or higher.
+
+6. SUPPORT
+   6.1 Critical incidents are responded to within 1 hour.
+   6.2 Standard incidents are responded to within 4 business hours.
+
+7. AUDIT RIGHTS
+   7.1 Client may request usage and compliance reports quarterly.
+   7.2 CloudVault Ltd. will provide reports within 10 business days of request.

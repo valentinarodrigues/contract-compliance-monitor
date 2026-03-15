@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Contract Compliance Monitor{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>
+    [x-cloak] { display: none !important; }
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen font-sans">
+
+  <!-- Sidebar -->
+  <div class="flex h-screen overflow-hidden">
+    <aside class="w-56 bg-gray-900 border-r border-gray-800 flex flex-col shrink-0">
+      <div class="px-6 py-5 border-b border-gray-800">
+        <p class="text-xs font-semibold text-indigo-400 uppercase tracking-widest">Compliance</p>
+        <h1 class="text-lg font-bold text-white mt-0.5">Monitor</h1>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="/" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium
+           {% if request.url.path == '/' %}bg-indigo-600 text-white{% else %}text-gray-400 hover:text-white hover:bg-gray-800{% endif %}">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"/></svg>
+          Dashboard
+        </a>
+        <a href="/violations" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium
+           {% if request.url.path == '/violations' %}bg-indigo-600 text-white{% else %}text-gray-400 hover:text-white hover:bg-gray-800{% endif %}">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+          Violations
+        </a>
+        <div class="pt-4">
+          <p class="px-3 text-xs font-semibold text-gray-600 uppercase tracking-widest mb-1">Vendors</p>
+          {% for vendor in vendors %}
+          <a href="/report/{{ vendor.vendor_id }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800
+             {% if '/report/' + vendor.vendor_id in request.url.path %}bg-gray-800 text-white{% endif %}">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+            {{ vendor.vendor_name }}
+          </a>
+          {% endfor %}
+        </div>
+      </nav>
+      <div class="px-4 py-3 border-t border-gray-800 text-xs text-gray-600">
+        Last refresh: {{ now }}
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="flex-1 overflow-y-auto">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+
+</body>
+</html>

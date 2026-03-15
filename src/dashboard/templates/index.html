@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Contract Compliance Monitor{% endblock %}
+
+{% block content %}
+<div class="p-8">
+  <!-- Header -->
+  <div class="mb-8">
+    <h2 class="text-2xl font-bold text-white">Compliance Dashboard</h2>
+    <p class="text-sm text-gray-400 mt-1">Real-time SLA monitoring across all vendor contracts</p>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5">
+      <p class="text-xs font-medium text-gray-500 uppercase tracking-widest">Vendors Monitored</p>
+      <p class="text-3xl font-bold text-white mt-2">{{ status.vendors_monitored }}</p>
+    </div>
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5">
+      <p class="text-xs font-medium text-gray-500 uppercase tracking-widest">Open Violations</p>
+      <p class="text-3xl font-bold {% if status.open_violations > 0 %}text-amber-400{% else %}text-emerald-400{% endif %} mt-2">
+        {{ status.open_violations }}
+      </p>
+    </div>
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5">
+      <p class="text-xs font-medium text-gray-500 uppercase tracking-widest">Critical</p>
+      <p class="text-3xl font-bold {% if status.critical_violations > 0 %}text-red-400{% else %}text-emerald-400{% endif %} mt-2">
+        {{ status.critical_violations }}
+      </p>
+    </div>
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5">
+      <p class="text-xs font-medium text-gray-500 uppercase tracking-widest">Total All-Time</p>
+      <p class="text-3xl font-bold text-gray-300 mt-2">{{ status.total_violations }}</p>
+    </div>
+  </div>
+
+  <!-- Vendor Cards -->
+  <div class="mb-8">
+    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-3">Vendor Overview</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {% for vendor in vendors %}
+      <a href="/report/{{ vendor.vendor_id }}" class="bg-gray-900 border border-gray-800 hover:border-indigo-500 rounded-xl p-5 transition-colors group">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="font-semibold text-white group-hover:text-indigo-300">{{ vendor.vendor_name }}</p>
+            <p class="text-xs text-gray-500 mt-0.5">{{ vendor.vendor_id }} · {{ vendor.sla_terms | length }} SLA terms</p>
+          </div>
+          <span class="text-xs bg-emerald-900 text-emerald-300 px-2 py-1 rounded-full">Active</span>
+        </div>
+        <div class="mt-3 flex flex-wrap gap-1">
+          {% for term in vendor.sla_terms %}
+          <span class="text-xs bg-gray-800 text-gray-400 px-2 py-0.5 rounded">{{ term.metric }}</span>
+          {% endfor %}
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Recent Violations -->
+  <div>
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-widest">Recent Violations</h3>
+      <a href="/violations" class="text-xs text-indigo-400 hover:text-indigo-300">View all →</a>
+    </div>
+
+    {% if recent_violations %}
+    <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-gray-800 text-xs text-gray-500 uppercase tracking-wider">
+            <th class="text-left px-5 py-3">Severity</th>
+            <th class="text-left px-5 py-3">Vendor</th>
+            <th class="text-left px-5 py-3">SLA Term</th>
+            <th class="text-left px-5 py-3">Metric</th>
+            <th class="text-right px-5 py-3">Actual / Threshold</th>
+            <th class="text-left px-5 py-3">Method</th>
+            <th class="text-left px-5 py-3">Detected</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for v in recent_violations %}
+          <tr class="border-b border-gray-800/50 hover:bg-gray-800/30">
+            <td class="px-5 py-3">
+              {% if v.severity == 'critical' %}
+              <span class="inline-flex items-center gap-1 text-xs font-medium text-red-400 bg-red-900/30 px-2 py-0.5 rounded-full">
+                <span class="w-1.5 h-1.5 rounded-full bg-red-400"></span> CRITICAL
+              </span>
+              {% else %}
+              <span class="inline-flex items-center gap-1 text-xs font-medium text-amber-400 bg-amber-900/30 px-2 py-0.5 rounded-full">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> WARNING
+              </span>
+              {% endif %}
+            </td>
+            <td class="px-5 py-3 text-gray-300">{{ v.vendor_name }}</td>
+            <td class="px-5 py-3 text-gray-300 font-mono text-xs">{{ v.sla_term_name }}</td>
+            <td class="px-5 py-3 text-gray-400 font-mono text-xs">{{ v.metric }}</td>
+            <td class="px-5 py-3 text-right">
+              <span class="text-white font-semibold">{{ v.actual_value }}</span>
+              <span class="text-gray-500 text-xs ml-1">({{ v.operator }} {{ v.threshold }})</span>
+            </td>
+            <td class="px-5 py-3">
+              <span class="text-xs {% if v.detection_method == 'anomaly' %}text-purple-400{% else %}text-blue-400{% endif %}">
+                {{ v.detection_method }}
+              </span>
+            </td>
+            <td class="px-5 py-3 text-gray-500 text-xs">{{ v.detected_at[:16] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-10 text-center">
+      <p class="text-emerald-400 font-medium">No violations detected</p>
+      <p class="text-gray-600 text-sm mt-1">All SLA terms are within contract bounds.</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

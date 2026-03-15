@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Violations — Contract Compliance Monitor{% endblock %}
+
+{% block content %}
+<div class="p-8" x-data="{ selected: null }">
+  <div class="mb-8">
+    <h2 class="text-2xl font-bold text-white">All Violations</h2>
+    <p class="text-sm text-gray-400 mt-1">{{ violations | length }} total violations</p>
+  </div>
+
+  <!-- Filters -->
+  <form method="get" class="flex flex-wrap gap-3 mb-6">
+    <select name="vendor_id" class="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500">
+      <option value="">All Vendors</option>
+      {% for v in vendors %}
+      <option value="{{ v }}" {% if filter_vendor == v %}selected{% endif %}>{{ v }}</option>
+      {% endfor %}
+    </select>
+    <select name="severity" class="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500">
+      <option value="">All Severities</option>
+      <option value="critical" {% if filter_severity == 'critical' %}selected{% endif %}>Critical</option>
+      <option value="warning" {% if filter_severity == 'warning' %}selected{% endif %}>Warning</option>
+    </select>
+    <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm px-4 py-2 rounded-lg transition-colors">
+      Filter
+    </button>
+    <a href="/violations" class="text-sm text-gray-400 hover:text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+      Clear
+    </a>
+  </form>
+
+  {% if violations %}
+  <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="border-b border-gray-800 text-xs text-gray-500 uppercase tracking-wider">
+          <th class="text-left px-5 py-3">Severity</th>
+          <th class="text-left px-5 py-3">Vendor</th>
+          <th class="text-left px-5 py-3">SLA Term</th>
+          <th class="text-left px-5 py-3">Metric</th>
+          <th class="text-right px-5 py-3">Actual</th>
+          <th class="text-right px-5 py-3">Threshold</th>
+          <th class="text-left px-5 py-3">Method</th>
+          <th class="text-left px-5 py-3">Period</th>
+          <th class="text-left px-5 py-3">Detected</th>
+          <th class="text-left px-5 py-3">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for v in violations %}
+        <tr class="border-b border-gray-800/50 hover:bg-gray-800/30 cursor-pointer"
+            @click="selected = selected === '{{ v.id }}' ? null : '{{ v.id }}'">
+          <td class="px-5 py-3">
+            {% if v.severity == 'critical' %}
+            <span class="inline-flex items-center gap-1 text-xs font-medium text-red-400 bg-red-900/30 px-2 py-0.5 rounded-full">● CRITICAL</span>
+            {% else %}
+            <span class="inline-flex items-center gap-1 text-xs font-medium text-amber-400 bg-amber-900/30 px-2 py-0.5 rounded-full">● WARNING</span>
+            {% endif %}
+          </td>
+          <td class="px-5 py-3 text-gray-300">{{ v.vendor_name }}</td>
+          <td class="px-5 py-3 font-mono text-xs text-gray-300">{{ v.sla_term_name }}</td>
+          <td class="px-5 py-3 font-mono text-xs text-gray-400">{{ v.metric }}</td>
+          <td class="px-5 py-3 text-right text-white font-semibold">{{ v.actual_value }}</td>
+          <td class="px-5 py-3 text-right text-gray-400 text-xs">{{ v.operator }} {{ v.threshold }}</td>
+          <td class="px-5 py-3">
+            <span class="text-xs {% if v.detection_method == 'anomaly' %}text-purple-400{% else %}text-blue-400{% endif %}">
+              {{ v.detection_method }}
+            </span>
+          </td>
+          <td class="px-5 py-3 text-gray-500 text-xs">{{ v.period }}</td>
+          <td class="px-5 py-3 text-gray-500 text-xs">{{ v.detected_at[:16] }}</td>
+          <td class="px-5 py-3">
+            {% if v.resolved %}
+            <span class="text-xs text-emerald-400">Resolved</span>
+            {% else %}
+            <button onclick="resolve('{{ v.id }}', event)"
+              class="text-xs text-gray-500 hover:text-emerald-400 transition-colors">
+              Resolve
+            </button>
+            {% endif %}
+          </td>
+        </tr>
+        <!-- Expandable notes row -->
+        <tr x-show="selected === '{{ v.id }}'" x-cloak class="bg-gray-800/40">
+          <td colspan="10" class="px-8 py-3 text-xs text-gray-400 italic">
+            {{ v.notes or 'No additional notes.' }}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="bg-gray-900 border border-gray-800 rounded-xl p-12 text-center">
+    <p class="text-emerald-400 font-medium text-lg">No violations found</p>
+    <p class="text-gray-600 text-sm mt-2">Try adjusting your filters or wait for the next monitoring cycle.</p>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+function resolve(id, event) {
+  event.stopPropagation();
+  fetch(`/api/violations/${id}/resolve`, { method: 'POST' })
+    .then(r => r.json())
+    .then(() => location.reload());
+}
+</script>
+{% endblock %}

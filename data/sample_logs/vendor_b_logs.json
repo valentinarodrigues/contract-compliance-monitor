@@ -1,0 +1,18 @@
+[
+  {"timestamp": "2026-03-13T08:00:00", "vendor_id": "vendor_b", "metric": "api_calls_per_day", "value": 32000, "metadata": {}},
+  {"timestamp": "2026-03-13T08:00:00", "vendor_id": "vendor_b", "metric": "uptime_percentage", "value": 100.0, "metadata": {}},
+  {"timestamp": "2026-03-13T08:00:00", "vendor_id": "vendor_b", "metric": "latency_ms_p50", "value": 55, "metadata": {}},
+  {"timestamp": "2026-03-13T08:00:00", "vendor_id": "vendor_b", "metric": "data_transfer_gb_per_day", "value": 650, "metadata": {}},
+  {"timestamp": "2026-03-13T10:00:00", "vendor_id": "vendor_b", "metric": "api_calls_per_day", "value": 48000, "metadata": {}},
+  {"timestamp": "2026-03-13T10:00:00", "vendor_id": "vendor_b", "metric": "uptime_percentage", "value": 99.95, "metadata": {}},
+  {"timestamp": "2026-03-13T10:00:00", "vendor_id": "vendor_b", "metric": "latency_ms_p50", "value": 82, "metadata": {}},
+  {"timestamp": "2026-03-13T10:00:00", "vendor_id": "vendor_b", "metric": "data_transfer_gb_per_day", "value": 980, "metadata": {}},
+  {"timestamp": "2026-03-13T12:00:00", "vendor_id": "vendor_b", "metric": "api_calls_per_day", "value": 61000, "metadata": {"note": "over daily cap"}},
+  {"timestamp": "2026-03-13T12:00:00", "vendor_id": "vendor_b", "metric": "uptime_percentage", "value": 99.85, "metadata": {}},
+  {"timestamp": "2026-03-13T12:00:00", "vendor_id": "vendor_b", "metric": "latency_ms_p50", "value": 115, "metadata": {"note": "elevated latency"}},
+  {"timestamp": "2026-03-13T12:00:00", "vendor_id": "vendor_b", "metric": "data_transfer_gb_per_day", "value": 1250, "metadata": {"note": "over 1TB cap"}},
+  {"timestamp": "2026-03-13T14:00:00", "vendor_id": "vendor_b", "metric": "api_calls_per_day", "value": 38000, "metadata": {}},
+  {"timestamp": "2026-03-13T14:00:00", "vendor_id": "vendor_b", "metric": "uptime_percentage", "value": 100.0, "metadata": {}},
+  {"timestamp": "2026-03-13T14:00:00", "vendor_id": "vendor_b", "metric": "latency_ms_p50", "value": 48, "metadata": {}},
+  {"timestamp": "2026-03-13T14:00:00", "vendor_id": "vendor_b", "metric": "data_transfer_gb_per_day", "value": 420, "metadata": {}}
+]
